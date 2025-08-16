@@ -1,287 +1,405 @@
 <template>
-  <div class="intro">
+  <div class="wedding">
+    <div class="intro">
+      <div class="container">
+        <div class="intro__header">
+          <div class="intro__menu">
+            <span>Приглашение</span>
+            <span>Тайминг</span>
+            <span>Локация</span>
+          </div>
+          <div class="intro__logo">
+            <img src="@/assets/icons/logo_intro.png" alt="">
+          </div>
+          <div class="intro__menu">
+            <span>Дресс-код</span>
+            <span>Напитки</span>
+            <span>Творчество</span>
+          </div>
+        </div>
+        <div class="intro__date">25 октября 2025</div>
+        <div class="intro__title">
+          <div>Артур и Аннелия</div>
+          <div>Свадебное торжество</div>
+        </div>
+      </div>
+    </div>
     <div class="container">
-      <div class="intro__header">
-        <div class="intro__menu">
-          <span>Приглашение</span>
-          <span>Тайминг</span>
-          <span>Локация</span>
-        </div>
-        <div class="intro__logo">
-          <img src="@/assets/icons/logo_intro.png" alt="">
-        </div>
-        <div class="intro__menu">
-          <span>Дресс-код</span>
-          <span>Напитки</span>
-          <span>Творчество</span>
-        </div>
-      </div>
-      <div class="intro__date">25 октября 2025</div>
-      <div class="intro__title">
-        <div>Артур и Аннелия</div>
-        <div>Свадебное торжество</div>
-      </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="block">
-      <div class="block__content">
-        <div class="block__half">
-          <img src="@/assets/img/flowers.jpg" alt="">
-        </div>
-        <div class="block__half">
-          <div class="invite">Дорогие наши, родные и близкие!</div>
-          <div class="block__text">
-            25 октября 2025 года начинается вдохновляющая история новой семейной жизни.
-            Нам хочется видеть вас на её первых страницах. Приглашаем разделить с нами радость
-            свадебного торжества, окунуться в атмосферу любви и семейного праздника
-          </div>
-          <div class="names">
-            <div>Артур, Аннелия</div>
-            <div>Валерий, Луиза</div>
-          </div>
-          <div class="desc">
-            Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и фамилию,
-            имена членов вашей семьи
-          </div>
-          <div class="form">
-            <div class="form__title">Имена и фамилии гостей</div>
-            <form @submit.prevent="">
-              <div class="form__textarea">
-                <img v-if="guestCome.names" @click="guestCome.names= ''" src="@/assets/icons/cross.png" alt="">
-                <textarea name="guestCome" v-model="guestCome.names" placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
-              </div>
-              <div class="counter">
-                <div class="counter__title">Количество гостей</div>
-                <div class="counter__panel">
-                  <img @click="deleteGuest(guestCome)" src="@/assets/icons/minus.png" alt="">
-                  <div class="counter__value">{{ guestCome.count }}</div>
-                  <img @click="addGuest(guestCome)" src="@/assets/icons/plus.png" alt="">
-                </div>
-              </div>
-              <button class="form__sub" :class="{'form__sub__active': guestCome.count && guestCome.names}">{{ dataSending.guestCome.btnText }}</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block__header">Логотип свадьбы</div>
-      <div class="block__content block__content_margin">
-        <div class="block__half block__half_margin block__half_logo">
-          <img src="@/assets/icons/logo_logo.png" alt="">
-        </div>
-        <div class="block__half">
-          <div class="block__title">Две буквы «А»</div>
-          <div class="block__text block__text_margin">Логотип Артура и Аннелии - две заглавные буквы «А», олицетворение имен жениха и невесты. Это - символ объединения двух личностей, двух жизней, двух судеб в один союз</div>
-          <div class="block__title">Символ союза</div>
-          <div class="block__text">Буквы не просто стоят рядом, они переплетаются. Это визуальное соединение букв символизирует союз и близость супругов. Брак — это не два отдельных человека, а новое, общее «мы». Переплетение говорит о доверии, поддержке, заботе друг о друге</div>
-        </div>
-      </div>
-      <div class="block__content">
-        <div class="block__half block__half_margin">
-          <div class="block__title">Национальный орнамент - казахские корни</div>
-          <div class="block__text block__text_margin">Левая буква «А» украшена традиционным казахским узором. Это отсылает к богатой культуре и наследию, корням семьи, это проявление уважения к своим истокам. Орнамент добавляет глубины в уникальность логотипа, вплетая в него символику родной земли</div>
-          <div class="block__title">Мужское и женское начало</div>
-          <div class="block__text">Правая буква «А» - строгая, прямая и мужественная, символизирует силу, опору, ответственность, воплощая Артура. Левая - более мягкая, изящная, украшенная, как нежность и красота Аннелии. Вместе они создают гармонию, баланс и завершенность</div>
-        </div>
-        <div class="block__half">
-          <img src="@/assets/img/vostok.jpg" alt="">
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block__header">Тайминг</div>
-      <div class="block__sub-header">25 октября 2025</div>
-      <div class="divider">
-        <div class="divider__line"></div>
-        <div class="block__content block__content_margin-s">
+      <div class="block">
+        <div class="block__content">
           <div class="block__half">
-            <div class="timing">
-              <img src="@/assets/icons/13.png" alt="">
-              <div class="timing__item">
-                <div class="timing__time">13:30</div>
-                <div class="timing__line">
-                  <div></div>
-                  <div></div>
+            <img src="@/assets/img/flowers.jpg" alt="">
+          </div>
+          <div class="block__half">
+            <div class="invite">Дорогие наши, родные и близкие!</div>
+            <div class="block__text">
+              25 октября 2025 года начинается вдохновляющая история новой семейной жизни.
+              Нам хочется видеть вас на её первых страницах. Приглашаем разделить с нами радость
+              свадебного торжества, окунуться в атмосферу любви и семейного праздника
+            </div>
+            <div class="names">
+              <div>Артур, Аннелия</div>
+              <div>Валерий, Луиза</div>
+            </div>
+            <div class="desc">
+              Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
+              фамилию,
+              имена членов вашей семьи
+            </div>
+            <div class="form">
+              <div class="form__title">Имена и фамилии гостей</div>
+                <div class="form__textarea">
+                  <img v-if="guestCome.names" @click="guestCome.names= ''"
+                       src="@/assets/icons/cross.png" alt="">
+                  <textarea v-model="guestCome.names"
+                            placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
                 </div>
-                <div class="timing__event">начало сбора гостей</div>
-              </div>
+                <div class="counter">
+                  <div class="counter__title">Количество гостей</div>
+                  <div class="counter__panel">
+                    <img @click="deleteGuest(guestCome)" src="@/assets/icons/minus.png" alt="">
+                    <div class="counter__value">{{ guestCome.count }}</div>
+                    <img @click="addGuest(guestCome)" src="@/assets/icons/plus.png" alt="">
+                  </div>
+                </div>
+                <button class="form__sub"
+                        :class="{'form__sub_active': guestCome.count && guestCome.names}">
+                  {{ dataSending.guestCome.btnText }}
+                </button>
             </div>
           </div>
         </div>
-        <div class="block__content block__content_margin-s">
-          <div class="block__half">
+      </div>
+      <div class="block">
+        <div class="block__header">Логотип свадьбы</div>
+        <div class="block__content block__content_margin">
+          <div class="block__half block__half_margin block__half_logo">
+            <img src="@/assets/icons/logo_logo.png" alt="">
           </div>
           <div class="block__half">
-            <div class="timing">
-              <div class="timing__item">
-                <div class="timing__time">14:00</div>
-                <div class="timing__line timing__line_reverse">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div class="timing__event">национальный обряд «Беташар»</div>
-              </div>
-              <img src="@/assets/icons/14.png" alt="">
+            <div class="block__title">Две буквы «А»</div>
+            <div class="block__text block__text_margin">Логотип Артура и Аннелии - две заглавные
+              буквы «А», олицетворение имен жениха и невесты. Это - символ объединения двух
+              личностей, двух жизней, двух судеб в один союз
             </div>
-          </div>
-        </div>
-        <div class="block__content block__content_margin-s">
-          <div class="block__half">
-            <div class="timing">
-              <img src="@/assets/icons/14_20.png" alt="">
-              <div class="timing__item">
-                <div class="timing__time">14:20</div>
-                <div class="timing__line">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div class="timing__event">торжественная регистрация <br/> брака</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="block__content block__content_margin-s">
-          <div class="block__half">
-          </div>
-          <div class="block__half">
-            <div class="timing">
-              <div class="timing__item">
-                <div class="timing__time">14:40</div>
-                <div class="timing__line timing__line_reverse">
-                  <div></div>
-                  <div></div>
-                </div>
-                <div class="timing__event">фотосессия молодоженов <br/> с гостями</div>
-              </div>
-              <img src="@/assets/icons/14_40.png" alt="">
+            <div class="block__title">Символ союза</div>
+            <div class="block__text">Буквы не просто стоят рядом, они переплетаются. Это визуальное
+              соединение букв символизирует союз и близость супругов. Брак — это не два отдельных
+              человека, а новое, общее «мы». Переплетение говорит о доверии, поддержке, заботе друг
+              о друге
             </div>
           </div>
         </div>
         <div class="block__content">
+          <div class="block__half block__half_margin">
+            <div class="block__title">Национальный орнамент - казахские корни</div>
+            <div class="block__text block__text_margin">Левая буква «А» украшена традиционным
+              казахским узором. Это отсылает к богатой культуре и наследию, корням семьи, это
+              проявление уважения к своим истокам. Орнамент добавляет глубины в уникальность
+              логотипа, вплетая в него символику родной земли
+            </div>
+            <div class="block__title">Мужское и женское начало</div>
+            <div class="block__text">Правая буква «А» - строгая, прямая и мужественная,
+              символизирует силу, опору, ответственность, воплощая Артура. Левая - более мягкая,
+              изящная, украшенная, как нежность и красота Аннелии. Вместе они создают гармонию,
+              баланс и завершенность
+            </div>
+          </div>
           <div class="block__half">
-            <div class="timing">
-              <img src="@/assets/icons/15_30.png" alt="">
-              <div class="timing__item">
-                <div class="timing__time">15:30</div>
-                <div class="timing__line">
-                  <div></div>
-                  <div></div>
+            <img src="@/assets/img/vostok.jpg" alt="">
+          </div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block__header">Тайминг</div>
+        <div class="block__sub-header">25 октября 2025</div>
+        <div class="divider">
+          <div class="divider__line"></div>
+          <div class="block__content block__content_margin-s">
+            <div class="block__half">
+              <div class="timing">
+                <img src="@/assets/icons/13.png" alt="">
+                <div class="timing__item">
+                  <div class="timing__time">13:30</div>
+                  <div class="timing__line">
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="timing__event">начало сбора гостей</div>
                 </div>
-                <div class="timing__event">начало банкета</div>
+              </div>
+            </div>
+          </div>
+          <div class="block__content block__content_margin-s">
+            <div class="block__half">
+            </div>
+            <div class="block__half">
+              <div class="timing">
+                <div class="timing__item">
+                  <div class="timing__time">14:00</div>
+                  <div class="timing__line timing__line_reverse">
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="timing__event">национальный обряд «Беташар»</div>
+                </div>
+                <img src="@/assets/icons/14.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="block__content block__content_margin-s">
+            <div class="block__half">
+              <div class="timing">
+                <img src="@/assets/icons/14_20.png" alt="">
+                <div class="timing__item">
+                  <div class="timing__time">14:20</div>
+                  <div class="timing__line">
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="timing__event">торжественная регистрация <br/> брака</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="block__content block__content_margin-s">
+            <div class="block__half">
+            </div>
+            <div class="block__half">
+              <div class="timing">
+                <div class="timing__item">
+                  <div class="timing__time">14:40</div>
+                  <div class="timing__line timing__line_reverse">
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="timing__event">фотосессия молодоженов <br/> с гостями</div>
+                </div>
+                <img src="@/assets/icons/14_40.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="block__content">
+            <div class="block__half">
+              <div class="timing">
+                <img src="@/assets/icons/15_30.png" alt="">
+                <div class="timing__item">
+                  <div class="timing__time">15:30</div>
+                  <div class="timing__line">
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <div class="timing__event">начало банкета</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="block">
-      <div class="block__header">Локация</div>
-      <div class="block__sub-header">«Олимпия» загородный клуб</div>
-      <div class="block__content">
-        <div id="map" class="block__half"></div>
-        <div class="block__half">
-          <img src="@/assets/img/location.jpg" alt="">
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block__header">Цветовая палитра нашей свадьбы</div>
-      <div class="block__content block__content_margin-s">
-        <div class="block__half block__half_margin">
-          <div class="block__text block__text_palita">
-            Уважаемые гости, оформление праздника будет выполнено в гамме лёгкой золотой осени: бордо, тёплое золото, оливковый, шалфейно зелёные оттенки и прочие
-          </div>
-        </div>
-        <div class="block__half">
-          <div class="block__text block__text_palita">
-            Мы будем признательны, если вы поддержите нашу атмосферу в выборе нарядов. Ниже представлены примеры цветов, которые помогут вам сориентироваться
+      <div class="block">
+        <div class="block__header">Локация</div>
+        <div class="block__sub-header">«Олимпия» загородный клуб</div>
+        <div class="block__content">
+          <div id="map" class="block__half"></div>
+          <div class="block__half">
+            <img src="@/assets/img/location.jpg" alt="">
           </div>
         </div>
       </div>
-      <div class="palitra">
-        <div class="palitra__item">
-          <div class="palitra__text">Шалфейный <br/> зелёный</div>
-        </div>
-        <div class="palitra__item">
-          <div class="palitra__text">Светло <br/> терракотовый</div>
-        </div>
-        <div class="palitra__item">
-          <div class="palitra__text">Кофейный мокка <br/> мусс</div>
-        </div>
-        <div class="palitra__item">
-          <div class="palitra__text">Кашемирово <br/> чёрный</div>
-        </div>
-        <div class="palitra__item">
-          <div class="palitra__text">Ванильно <br/> бежевый</div>
-        </div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block__header">
-        Предпочтения по алкоголю
-      </div>
-      <div class="block__sub-header" :class="alcoStep.step ? 'block__sub-header_inactive' : 'block__sub-header_grey'">Шаг 1 — Сколько человек из вашей компании <br/> будут пить алкогольные напитки?</div>
-      <div v-if="alcoStep.step" class="block__count">{{ guestAlco.count + alcoStep.countText }}</div>
-      <div v-if="!alcoStep.step" class="alco">
-        <div class="form">
-          <div class="counter">
-            <div class="counter__panel">
-              <img @click="deleteGuest(guestAlco)" src="@/assets/icons/minus.png" alt="">
-              <div class="counter__value">{{ guestAlco.count }}</div>
-              <img @click="addGuest(guestAlco)" src="@/assets/icons/plus.png" alt="">
+      <div class="block">
+        <div class="block__header">Цветовая палитра нашей свадьбы</div>
+        <div class="block__content block__content_margin-s">
+          <div class="block__half block__half_margin">
+            <div class="block__text block__text_palita">
+              Уважаемые гости, оформление праздника будет выполнено в гамме лёгкой золотой осени:
+              бордо, тёплое золото, оливковый, шалфейно зелёные оттенки и прочие
             </div>
           </div>
-          <div class="form__title">Имена и фамилии гостей</div>
-          <form @submit.prevent="chooseDrinks">
-            <div class="form__textarea">
-              <textarea name="guestAlco" v-model="guestAlco.names" placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
-              <img v-if="guestAlco.names" @click="guestAlco.names= ''" src="@/assets/icons/cross.png" alt="">
-            </div>
-            <button class="form__sub" :class="{'form__sub__active': (guestAlco.count && guestAlco.names) || guestAlco.notDrink}">{{ dataSending.guestAlco.btnText }}</button>
-          </form>
-        </div>
-        <div class="checkbox">
-          <input v-model="guestAlco.notDrink" id="checkbox" type="checkbox">
-          <label for="checkbox"></label>
-          <div @click="guestAlco.notDrink = !guestAlco.notDrink" class="checkbox__text">Мы не употребляем алкоголь</div>
-        </div>
-      </div>
-      <div class="block__divider"></div>
-      <div v-if="!alcoStep.step" class="block__sub-header block__sub-header_inactive">Шаг 2 — Выберите напитки</div>
-      <div v-if="alcoStep.step" class="select">
-        <div class="select__header">
-          <div @click="goBack" class="select__back">
-            <img src="@/assets/icons/back.png" alt="">
-            <div>Вернуться назад</div>
-          </div>
-          <div class="block__sub-header block__sub-header_grey block__sub-header_m-0">{{ alcoStep.text }}</div>
-        </div>
-        <div class="select__content">
-          <div v-for="item in alcoArr" :key="item.name" class="select__item">
-            <img :src="item.path" alt="">
-            <div class="select__name">{{ item.name }}</div>
-            <div @click="setAlco(item, guestAlco.alco)" class="select__btn">
-              <div v-if="!guestAlco.alco[item.name]">Выбрать</div>
-              <img v-if="!guestAlco.alco[item.name]" src="@/assets/icons/plus_light.png" alt="">
-              <img src="" alt="">
-              <div>{{ guestAlco.alco[item.name] }}</div>
-              <img src="" alt="">
+          <div class="block__half">
+            <div class="block__text block__text_palita">
+              Мы будем признательны, если вы поддержите нашу атмосферу в выборе нарядов. Ниже
+              представлены примеры цветов, которые помогут вам сориентироваться
             </div>
           </div>
         </div>
-<!--        <button class="select__btn"></button>-->
+        <div class="palitra">
+          <div class="palitra__item">
+            <div class="palitra__text">Шалфейный <br/> зелёный</div>
+          </div>
+          <div class="palitra__item">
+            <div class="palitra__text">Светло <br/> терракотовый</div>
+          </div>
+          <div class="palitra__item">
+            <div class="palitra__text">Кофейный мокка <br/> мусс</div>
+          </div>
+          <div class="palitra__item">
+            <div class="palitra__text">Кашемирово <br/> чёрный</div>
+          </div>
+          <div class="palitra__item">
+            <div class="palitra__text">Ванильно <br/> бежевый</div>
+          </div>
+        </div>
       </div>
-
-
-
+      <div class="block">
+        <div class="block__header">
+          Предпочтения по алкоголю
+        </div>
+        <div class="block__sub-header"
+             :class="alcoStep.step ? 'block__sub-header_inactive' : 'block__sub-header_grey'">Шаг 1
+          — Сколько человек из вашей компании <br/> будут пить алкогольные напитки?
+        </div>
+        <div v-if="alcoStep.step" class="block__count">{{
+            guestAlco.count + alcoStep.countText
+          }}
+        </div>
+        <div v-if="!alcoStep.step" class="alco">
+          <div class="form">
+            <div class="counter">
+              <div class="counter__panel">
+                <img @click="deleteGuest(guestAlco)" src="@/assets/icons/minus.png" alt="">
+                <div class="counter__value">{{ guestAlco.count }}</div>
+                <img @click="addGuest(guestAlco)" src="@/assets/icons/plus.png" alt="">
+              </div>
+            </div>
+            <div class="form__title">Имена и фамилии гостей</div>
+              <div class="form__textarea">
+                <textarea v-model="guestAlco.names"
+                          placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
+                <img v-if="guestAlco.names" @click="guestAlco.names= ''"
+                     src="@/assets/icons/cross.png" alt="">
+              </div>
+              <button @click="chooseDrinks" class="form__sub"
+                      :class="{'form__sub_active': (guestAlco.count && guestAlco.names) || guestAlco.notDrink}">
+                {{ dataSending.guestAlco.btnText }}
+              </button>
+          </div>
+          <div class="checkbox">
+            <input v-model="guestAlco.notDrink" id="checkbox" type="checkbox">
+            <label for="checkbox"></label>
+            <div @click="guestAlco.notDrink = !guestAlco.notDrink" class="checkbox__text">Мы не
+              употребляем алкоголь
+            </div>
+          </div>
+        </div>
+        <div class="block__divider"></div>
+        <div v-if="!alcoStep.step" class="block__sub-header block__sub-header_inactive">Шаг 2 —
+          Выберите напитки
+        </div>
+        <div v-if="alcoStep.step === 1" class="select">
+          <div class="select__header">
+            <div @click="goBack" class="select__back">
+              <img src="@/assets/icons/back.png" alt="">
+              <div>Вернуться назад</div>
+            </div>
+            <div class="block__sub-header block__sub-header_grey block__sub-header_m-0">
+              {{ alcoStep.text }}
+            </div>
+          </div>
+          <div class="select__content">
+            <div v-for="item in alcoArr" :key="item.name" class="select__item">
+              <img :src="item.path" alt="">
+              <div class="select__name">{{ item.name }}</div>
+              <div v-if="!guestAlco.alco[item.name]" @click="setAlco(item, guestAlco.alco)"
+                   class="select__btn"
+                   :class="{'select__btn_inactive': guestAlco.count === guestAlco.alco.general}">
+                <div>Выбрать</div>
+                <img src="@/assets/icons/plus_light.png" alt="">
+              </div>
+              <div v-else class="select__btn select__btn_selected">
+                <img @click="removeAlco(item, guestAlco.alco)" src="@/assets/icons/minus.png"
+                     alt="">
+                <div>{{ guestAlco.alco[item.name] }}</div>
+                <img @click="setAlco(item, guestAlco.alco)" src="@/assets/icons/plus.png" alt="">
+              </div>
+            </div>
+          </div>
+          <button @click="sendAlcoInfo" class="select__sub"
+                  :class="{'select__sub_active': guestAlco.count === guestAlco.alco.general}">
+            Отправить
+          </button>
+        </div>
+        <div v-if="alcoStep.step === 2" class="success">
+          <div class="block__sub-header block__sub-header_inactive">{{ alcoStep.text }}</div>
+          <div class="success__info">Информация успешно отправлена</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="block__header">Станьте частью праздника</div>
+        <div class="block__content">
+          <div class="block__half block__half_margin">
+            <div class="block__text block__text_margin">
+              Будем счастливы, если на нашем празднике прозвучит душевная песня или засияет чувственный танец в вашем исполнении. Предложите свой творческий номер и подарите всем незабываемые эмоции
+            </div>
+            <div class="block__logo-contact">
+              <img src="@/assets/icons/logo_contact.png" alt="">
+            </div>
+          </div>
+          <div class="block__half">
+            <div class="form">
+              <div class="form__title">Имена и фамилии гостей</div>
+                <div class="form__textarea">
+                  <img v-if="guestPerform.names" @click="guestPerform.names= ''"
+                       src="@/assets/icons/cross.png" alt="">
+                  <textarea v-model="guestPerform.names"
+                            placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
+                </div>
+              <div class="contact-input">
+                <div class="contact-input__title"></div>
+                <input maxlength="18" v-model="guestPerform.number"  @input="formatPhoneNumber"
+                   @keydown="preventDeletePlusSeven" placeholder="+7" type="tel">
+              </div>
+              <div class="form__title">Описание номера</div>
+              <div class="form__textarea">
+                <img v-if="guestPerform.desc" @click="guestPerform.desc= ''"
+                     src="@/assets/icons/cross.png" alt="">
+                <textarea v-model="guestPerform.desc"
+                          placeholder="Коротко расскажите, что вы хотите исполнять (песня, танец, сценка и т. д.)"></textarea>
+              </div>
+                <button class="form__sub"
+                        :class="{'form__sub_active': guestPerform.number && guestPerform.names && guestPerform.desc}">
+                  {{ dataSending.guestCome.btnText }}
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="footer__title">
+          Пожалуйста сообщите о своем прибытии на свадьбу в срок до 05 октября
+        </div>
+        <div class="footer__date">
+          <div class="footer__text">До торжества осталось</div>
+          <div class="timer">
+            <div class="timer__item">
+              <div class="timer__value">{{ days }}</div>
+              <div class="timer__label">дней</div>
+            </div>
+            <div class="timer__divider"></div>
+            <div class="timer__item">
+              <div class="timer__value">{{ hours }}</div>
+              <div class="timer__label">часов</div>
+            </div>
+            <div class="timer__divider"></div>
+            <div class="timer__item">
+              <div class="timer__value">{{ minutes }}</div>
+              <div class="timer__label">минут</div>
+            </div>
+            <div class="timer__divider"></div>
+            <div class="timer__item">
+              <div class="timer__value">{{ seconds }}</div>
+              <div class="timer__label">секунд</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {ref, reactive, watch} from "vue";
+import {ref, reactive, watch, onMounted, onBeforeUnmount} from "vue";
 
 const dataSending = reactive({
   guestCome: {
@@ -292,6 +410,12 @@ const dataSending = reactive({
     btnText: 'Выбрать напитки',
     dataIsSend: false,
   }
+})
+
+const guestPerform = reactive({
+  names: '',
+  number: '+7 ',
+  desc: '',
 })
 
 const guestCome = reactive({
@@ -314,6 +438,40 @@ let alcoStep = reactive({
   countText: '',
 })
 
+const formatPhoneNumber = (e) => {
+  const input = e.target;
+  let value = input.value.replace(/\D/g, ''); // Удаляем всё, кроме цифр
+
+  // Если номер не начинается с 7, добавляем её (код России)
+  if (!value.startsWith('7') && value.length > 0) {
+    value = '7' + value;
+  }
+
+  // Ограничиваем длину (10 цифр после 7)
+  value = value.substring(0, 11);
+
+  // Форматируем номер
+  let formattedValue = '+7 ';
+  if (value.length > 1) {
+    const rest = value.substring(1);
+    formattedValue += rest.length > 0 ? `(${rest.substring(0, 3)}` : '';
+    formattedValue += rest.length > 3 ? `) ${rest.substring(3, 6)}` : '';
+    formattedValue += rest.length > 6 ? `-${rest.substring(6, 8)}` : '';
+    formattedValue += rest.length > 8 ? `-${rest.substring(8, 10)}` : '';
+  }
+
+  input.value = formattedValue;
+  guestPerform.number = formattedValue;
+};
+
+// Запрещаем удалять +7
+const preventDeletePlusSeven = (e) => {
+  if (e.target.selectionStart <= 3 && (e.key === 'Backspace' || e.key === 'Delete')) {
+    e.preventDefault();
+  }
+};
+
+
 const chooseDrinks = () => {
   if ((guestAlco.count && guestAlco.names) || guestAlco.notDrink) {
     alcoStep.step = 1
@@ -321,15 +479,22 @@ const chooseDrinks = () => {
 }
 
 const setAlco = (item, obj) => {
-  if (guestAlco.count !== obj.general)
-  item.name in obj ? obj[item.name]++ : obj[item.name] = 1
-  obj.general++
+  if (guestAlco.count !== obj.general) {
+    item.name in obj ? obj[item.name]++ : obj[item.name] = 1
+    obj.general++
+  }
 }
 
 const removeAlco = (item, obj) => {
   if (obj[item.name]) {
     obj[item.name]--
     obj.general--
+  }
+}
+
+const sendAlcoInfo = () => {
+  if (guestAlco.count === guestAlco.alco.general) {
+    alcoStep.step = 2
   }
 }
 
@@ -357,6 +522,51 @@ const deleteGuest = (obj) => {
     obj.count--
   }
 }
+
+// Реактивные переменные
+const days = ref(0)
+const hours = ref(0)
+const minutes = ref(0)
+const seconds = ref(0)
+
+// Конечная дата - 25 октября 2025
+const endDate = new Date("2025-10-25T00:00:00")
+let intervalId = null
+
+// Функция обновления таймера
+const updateTimer = () => {
+  const now = new Date()
+  const diff = endDate - now
+
+  if (diff <= 0) {
+    days.value = 0
+    hours.value = 0
+    minutes.value = 0
+    seconds.value = 0
+    clearInterval(intervalId)
+    return
+  }
+
+  // Конвертация миллисекунд в дни, часы, минуты, секунды
+  const totalSeconds = Math.floor(diff / 1000)
+  days.value = Math.floor(totalSeconds / 86400)
+  hours.value = Math.floor((totalSeconds % 86400) / 3600)
+  minutes.value = Math.floor((totalSeconds % 3600) / 60)
+  seconds.value = totalSeconds % 60
+}
+
+// Запуск таймера при монтировании компонента
+onMounted(() => {
+  updateTimer() // Первое обновление сразу
+  intervalId = setInterval(updateTimer, 1000)
+})
+
+// Очистка таймера при размонтировании компонента
+onBeforeUnmount(() => {
+  if (intervalId) {
+    clearInterval(intervalId)
+  }
+})
 
 watch(
   () => guestAlco.notDrink,
@@ -397,7 +607,124 @@ watch(
   margin: 0 auto;
 }
 
+.timer {
+  display: flex;
+  justify-content: center;
+  font-family: "TT Hoves Pro";
+  color: #fff;
+  &__item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__value {
+    font-size: 44px;
+    font-weight: 500;
+  }
+  &__label {
+    font-size: 24px;
+    line-height: 28px;
+    font-weight: 400;
+  }
+  &__divider {
+    height: inherit;
+    width: 1px;
+    background-color: #CBCBCB;
+    margin: 0 16px;
+  }
+}
+
+.footer {
+  width: 100%;
+  height: 654px;
+  border-top-left-radius: 32px;
+  border-top-right-radius: 32px;
+  background-color: #A4B494;
+  padding-top: 116px;
+  padding-bottom: 152px;
+  &__title {
+    font-family: "TT Hoves Pro";
+    font-size: 52px;
+    line-height: 56px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 100px;
+  }
+  &__text {
+    font-family: "Forum";
+    text-align: center;
+    font-size: 52px;
+    line-height: 54px;
+    color: #fff;
+    margin-bottom: 40px;
+  }
+}
+
+.contact-input {
+  font-family: "TT Hoves Pro";
+  width: 100%;
+  input {
+    border: 1px solid #8A8D93;
+    border-radius: 16px;
+    padding: 12px 16px;
+    font-size: 18px;
+    line-height: 24px;
+    width: 100%;
+    &:focus {
+      border-color: #000;
+    }
+    &::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.success {
+  &__info {
+    font-family: "TT Hoves Pro";
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 500;
+    max-width: 404px;
+    width: 100%;
+    padding: 20px 40px;
+    background-color: #1CCB01;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-radius: 20px;
+    color: #fff;
+  }
+}
+
 .select {
+  &__sub {
+    margin: 0 auto;
+    border-radius: 20px;
+    background-color: #C4C5C8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 40px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #fff;
+    font-family: 'TT Hoves Pro';
+    transition: background-color 0.2s;
+    &_active {
+      background-color: #000;
+      &:hover {
+        background-color: #585B5F;
+      }
+      &:active {
+        background-color: #76797F;
+      }
+    }
+  }
   &__header {
     display: flex;
     align-items: center;
@@ -416,6 +743,7 @@ watch(
   }
   &__content {
     display: flex;
+    margin-bottom: 44px;
   }
   &__item {
     display: flex;
@@ -446,17 +774,48 @@ watch(
     transition: background-color 0.2s;
     background-color: #000;
     color: #fff;
-    padding: 12px 0;
+    height: 44px;
     cursor: pointer;
     user-select: none;
-    &__inactive {
-      background-color: #C4C5C8;
-    }
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
     &:hover {
       background-color: #585B5F;
     }
     img {
       margin-left: 8px;
+    }
+    &_inactive {
+      background-color: #C4C5C8;
+      &:hover {
+        background-color: #C4C5C8;
+      }
+    }
+    &_selected {
+      position: relative;
+      background-color: #fff;
+      color: #000;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 2px 0 8px rgba(0, 0, 0, 0.06);
+      cursor: auto;
+      font-size: 22px;
+      line-height: 24px;
+      img {
+        margin-left: 0;
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        &:first-child {
+          left: 16px;
+        }
+        &:last-child {
+          right: 16px;
+        }
+      }
+      &:hover {
+        background-color: #fff;
+      }
     }
   }
 }
@@ -696,6 +1055,14 @@ watch(
 
 .block {
   margin-bottom: 116px;
+  &__logo-contact {
+    height: 362px;
+    background-color: #EEE2D0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 16px;
+  }
   &__content {
     display: flex;
     align-items: center;
@@ -846,7 +1213,7 @@ watch(
     color: #fff;
     font-family: 'TT Hoves Pro';
     transition: background-color 0.2s;
-    &__active {
+    &_active {
       background-color: #000;
       &:hover {
         background-color: #585B5F;
@@ -877,6 +1244,7 @@ watch(
     border-radius: 16px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 2px 0 8px rgba(0, 0, 0, 0.06);
     position: relative;
+    user-select: none;
     img {
       cursor: pointer;
       position: absolute;
