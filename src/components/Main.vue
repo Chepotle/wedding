@@ -56,7 +56,7 @@
               </button>
             </div>
             <div v-if="dataSending.guestCome.dataIsSend" class="success">
-              <div class="success_text">Спасибо за информацию!</div>
+              <div class="success__text">Спасибо за информацию!</div>
               <div class="success__info">Данные успешно отправлены</div>
             </div>
           </div>
@@ -483,6 +483,7 @@ const sendGuestCome = async () => {
         },
         body: JSON.stringify(guestCome)
       });
+      dataSending.guestCome.dataIsSend = true;
 
       if (!response.ok) {
         throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -697,7 +698,7 @@ const Createlayout = (e) => {return e.templateLayoutFactory.createClass(`<div di
         <div class="rubric-placemark-icons-provider__base-content _pin-type_default">
         <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.857 8C8.082 8.02 6.02 7.53 5 6c1.036-1.554 3.144-1.498 4.937-.944C8.53 3.802 7.493 2.03 8 0c.851 0 4.602 1.45 5.698 4.966C15.771 3.78 19.331 3.331 22 6c-1.814 1.814-5.089 2.165-7.396 1.939C16.49 9.059 18 11.029 18 13c-1.759 0-5.452-1.547-6.316-4.642C8.679 10.201 6 13.983 6 22v.2a.8.8 0 0 1-.8.8H2.8a.8.8 0 0 1-.8-.8V22c0-6.5 2.619-11.167 7.857-14z" fill="currentColor"></path><path d="M8.68 23a.4.4 0 0 1-.35-.594l4.376-7.877a.4.4 0 0 1 .665-.051L16.5 18.5l2.206-1.324a.4.4 0 0 1 .513.087l4.234 5.08a.4.4 0 0 1-.307.657H8.68z" fill="currentColor"></path></svg>
         </div></div></div></div></div>
-        <div class="search-placemark-view__title"> 
+        <div class="search-placemark-view__title">
         <div class="search-placemark-title _background _position_right _no-truncate">
         <div class="search-placemark-title__title"><div class="search-placemark-title__title-text">{{properties.name}}</div>
         <div class="search-placemark-title__title-rating"><span class="search-placemark-title-modular-hint-view">
@@ -709,11 +710,11 @@ const Createlayout = (e) => {return e.templateLayoutFactory.createClass(`<div di
         <span class="search-placemark-title__subtitle-item"><span class="search-placemark-title-modular-hint-view"> База, дом отдыха
         </span></span></div></div> </div></div></div>`,
         {build:function(){this.constructor.superclass.build.call(this)}});
-      }    
+      }
 onMounted(() => {
   updateTimer() // Первое обновление сразу
   intervalId = setInterval(updateTimer, 1000)
-  const maps = ymaps.load('//api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=48d4964b-4fe1-4b32-8768-43ec07c075de').then((maps)=>{        
+  const maps = ymaps.load('//api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=48d4964b-4fe1-4b32-8768-43ec07c075de').then((maps)=>{
       const map = new maps.Map('map', {
         center: [48.666096, 44.564278],
         zoom: 14
@@ -723,10 +724,10 @@ onMounted(() => {
       orgGeoObject.options.set("iconLayout",Createlayout(maps));
       orgGeoObject.options.set("iconShape",{type:"Rectangle",coordinates:[[-25,-25],[125,25]]});
       orgGeoObject.options.set("iconOffset",[-0,-0]);
-      map.geoObjects.add(orgGeoObject);      
+      map.geoObjects.add(orgGeoObject);
     }
     // 1110837623 id org
-  ).catch(err => console.log(err));  
+  ).catch(err => console.log(err));
 }).catch(error => console.log('Failed to load Yandex Maps', error));
 });
 // Очистка таймера при размонтировании компонента
@@ -903,11 +904,16 @@ watch(
   }
   &__text {
     font-size: 18px;
-    line-height: 20;
+    line-height: 20px;
     font-family: "TT Hoves Pro";
     font-weight: 500;
     margin-bottom: 36px;
+    margin-top: 24px;
+    @include media("max", "m") {
+
+    }
   }
+
 }
 
 .select {
@@ -1441,7 +1447,7 @@ watch(
         flex-direction: row;
       }
     }
-    
+
     img {
       max-width: 100%;
       overflow: hidden;
@@ -1685,6 +1691,11 @@ br {
   column-gap: 24px;
   row-gap: 8px;
   grid-template-areas: 'm i' 'd i';
+  @include media("max", "m") {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'm' 'd' 'i';
+    grid-auto-rows: 225px auto auto;
+  }
   &__cont{
     grid-area: m;
     border-radius: 16px;
