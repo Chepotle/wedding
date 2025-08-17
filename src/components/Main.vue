@@ -27,7 +27,7 @@
     <div class="container">
       <div id="invite" class="block">
         <div class="block__content block__content_reverse">
-          <div class="block__half">
+          <div class="block__half block__half_margin">
             <img src="@/assets/img/flowers.jpg" alt="">
             <div class="form form_mob">
               <div class="desc">
@@ -118,7 +118,7 @@
             </div>
           </div>
         </div>
-        <div class="block__content">
+        <div class="block__content block__content_reverse">
           <div class="block__half block__half_margin">
             <div class="block__title">Национальный орнамент - казахские корни</div>
             <div class="block__text block__text_margin">Левая буква «А» украшена традиционным
@@ -133,7 +133,7 @@
               баланс и завершенность
             </div>
           </div>
-          <div class="block__half">
+          <div class="block__half block__half_margin-s-mob">
             <img src="@/assets/img/vostok.jpg" alt="">
           </div>
         </div>
@@ -144,9 +144,13 @@
         <div class="divider">
           <div class="divider__line"></div>
           <div class="block__content block__content_margin-s">
-            <div class="block__half">
-              <div class="timing">
-                <img src="@/assets/icons/13.png" alt="">
+            <div class="block__half block__half_timing">
+              <div class="timing timing_reverse">
+                <picture>
+                  <source srcset="@/assets/icons/13.png" media="(min-width: 1439px)">
+                  <source srcset="@/assets/icons/mobile/13.png" media="(min-width: 0)">
+                  <img src="@/assets/icons/mobile/13.png" alt="">
+                </picture>
                 <div class="timing__item">
                   <div class="timing__time">13:30</div>
                   <div class="timing__line">
@@ -161,7 +165,7 @@
           <div class="block__content block__content_margin-s">
             <div class="block__half">
             </div>
-            <div class="block__half">
+            <div class="block__half block__half_timing">
               <div class="timing">
                 <div class="timing__item">
                   <div class="timing__time">14:00</div>
@@ -171,14 +175,22 @@
                   </div>
                   <div class="timing__event">национальный обряд «Беташар»</div>
                 </div>
-                <img src="@/assets/icons/14.png" alt="">
+                <picture>
+                  <source srcset="@/assets/icons/14.png" media="(min-width: 1439px)">
+                  <source srcset="@/assets/icons/mobile/14.png" media="(min-width: 0)">
+                  <img src="@/assets/icons/mobile/14.png" alt="">
+                </picture>
               </div>
             </div>
           </div>
           <div class="block__content block__content_margin-s">
-            <div class="block__half">
-              <div class="timing">
-                <img src="@/assets/icons/14_20.png" alt="">
+            <div class="block__half block__half_timing">
+              <div class="timing timing_reverse">
+                <picture>
+                  <source srcset="@/assets/icons/14_20.png" media="(min-width: 1439px)">
+                  <source srcset="@/assets/icons/mobile/14_20.png" media="(min-width: 0)">
+                  <img src="@/assets/icons/mobile/14_20.png" alt="">
+                </picture>
                 <div class="timing__item">
                   <div class="timing__time">14:20</div>
                   <div class="timing__line">
@@ -193,7 +205,7 @@
           <div class="block__content block__content_margin-s">
             <div class="block__half">
             </div>
-            <div class="block__half">
+            <div class="block__half block__half_timing">
               <div class="timing">
                 <div class="timing__item">
                   <div class="timing__time">14:40</div>
@@ -203,14 +215,22 @@
                   </div>
                   <div class="timing__event">фотосессия молодоженов <br/> с гостями</div>
                 </div>
-                <img src="@/assets/icons/14_40.png" alt="">
+                <picture>
+                  <source srcset="@/assets/icons/14_40.png" media="(min-width: 1439px)">
+                  <source srcset="@/assets/icons/mobile/14_40.png" media="(min-width: 0)">
+                  <img src="@/assets/icons/mobile/14_40.png" alt="">
+                </picture>
               </div>
             </div>
           </div>
           <div class="block__content">
-            <div class="block__half">
-              <div class="timing">
-                <img src="@/assets/icons/15_30.png" alt="">
+            <div class="block__half block__half_timing">
+              <div class="timing timing_reverse">
+                <picture>
+                  <source srcset="@/assets/icons/15_30.png" media="(min-width: 1439px)">
+                  <source srcset="@/assets/icons/mobile/15_30.png" media="(min-width: 0)">
+                  <img src="@/assets/icons/mobile/15_30.png" alt="">
+                </picture>
                 <div class="timing__item">
                   <div class="timing__time">15:30</div>
                   <div class="timing__line">
@@ -774,6 +794,9 @@ watch(
   &__content {
     display: flex;
     margin-bottom: 44px;
+    @include media("max", "m") {
+      flex-wrap: wrap;
+    }
   }
   &__item {
     display: flex;
@@ -782,6 +805,10 @@ watch(
     margin-right: 32px;
     &:last-child {
       margin-right: 0;
+    }
+    + img {
+      max-width: 168px;
+      width: 100%;
     }
   }
   &__name {
@@ -902,12 +929,19 @@ watch(
   max-width: 458px;
   width: 100%;
   margin: 36px auto 0;
+  @include media("max", "m") {
+    max-width: 100%;
+  }
 }
 
 .palitra {
   font-family: "TT Hoves Pro";
   display: flex;
   height: 400px;
+  @include media("max", "m") {
+    flex-wrap: wrap;
+    height: 472px;
+  }
   &__item {
     padding: 20px 16px;
     color: #fff;
@@ -918,6 +952,9 @@ watch(
     border-radius: 16px;
     margin-right: 8px;
     flex: 1;
+    @include media("max", "m") {
+      padding: 12px;
+    }
     &:nth-child(1) {
       background-color: #A4B494;
     }
@@ -926,14 +963,24 @@ watch(
     }
     &:nth-child(3) {
       background-color: #94795D;
+      @include media("max", "m") {
+        margin-top: 8px;
+        margin-right: 8px;
+      }
     }
     &:nth-child(4) {
       background-color: #3B322D;
+      @include media("max", "m") {
+        margin-top: 8px;
+      }
     }
     &:nth-child(5) {
       background-color: #EEE2D0;
       color: #000;
       margin-right: 0;
+      @include media("max", "m") {
+        margin-top: 8px;
+      }
     }
   }
 }
@@ -949,6 +996,10 @@ watch(
     left: 50%;
     top: 0;
     transform: translateX(-50%);
+    @include media("max", "m") {
+      left: 0;
+      transform: translateX(0);
+    }
     &::after {
       content: '';
       position: absolute;
@@ -980,6 +1031,15 @@ watch(
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @include media("max", "m") {
+    flex-grow: 1;
+
+  }
+  &_reverse {
+    @include media("max", "m") {
+      flex-direction: row-reverse;
+    }
+  }
   &__item {
     flex-grow: 1;
   }
@@ -987,21 +1047,37 @@ watch(
     font-size: 36px;
     line-height: 40px;
     text-align: center;
+    @include media("max", "m") {
+      text-align: left;
+      margin-left: 8px;
+    }
   }
   &__event {
     font-size: 24px;
     line-height: 28px;
     color: #666666;
     text-align: center;
+    @include media("max", "m") {
+      text-align: left;
+      margin-left: 8px;
+    }
   }
   &__line {
     display: flex;
     align-items: center;
     margin: 4px 0 4px 16px;
+    @include media("max", "m") {
+      flex-direction: row-reverse;
+      margin-right: 7px;
+      margin-left: 0;
+    }
     &_reverse {
       flex-direction: row-reverse;
       margin-right: 16px;
       margin-left: 0;
+      @include media("max", "m") {
+        margin-right: 7px;
+      }
     }
     div {
       &:first-child {
@@ -1120,6 +1196,9 @@ watch(
     }
     &_margin {
       margin-bottom: 80px;
+      @include media("max", "m") {
+        margin-bottom: 24px;
+      }
     }
     &_margin-s {
       margin-bottom: 24px;
@@ -1132,6 +1211,11 @@ watch(
     font-size: 32px;
     line-height: 36px;
     margin-bottom: 24px;
+    @include media("max", "m") {
+      font-size: 22px;
+      line-height: 26px;
+      margin-bottom: 16px;
+    }
     &_grey {
       color: #474747;
     }
@@ -1151,22 +1235,30 @@ watch(
     color: #1CCB01;
   }
   &__half {
+    width: 50%;
     @include media("max", "m") {
       display: flex;
       flex-direction: column;
+      width: 100%;
+    }
+    &_timing {
+      @include media("max", "m") {
+        flex-direction: row;
+      }
     }
     img {
       max-width: 100%;
       overflow: hidden;
     }
-    width: 50%;
-    @include media("max", "m") {
-      width: 100%;
-    }
     &_margin {
       margin-right: 72px;
       @include media("max", "m") {
         margin-right: 0;
+      }
+    }
+    &_margin-s-mob {
+      @include media("max", "m") {
+        margin-bottom: 24px;
       }
     }
     &_logo {
@@ -1176,6 +1268,11 @@ watch(
       justify-content: center;
       align-items: center;
       border-radius: 16px;
+      @include media("max", "m") {
+        height: auto;
+        padding: 57px;
+        margin-bottom: 24px;
+      }
     }
   }
   &__header {
@@ -1184,6 +1281,11 @@ watch(
     line-height: 54px;
     margin-bottom: 40px;
     text-align: center;
+    @include media("max", "m") {
+      margin-bottom: 20px;
+      font-size: 36px;
+      line-height: 40px;
+    }
   }
   &__title {
     font-family: "TT Hoves Pro";
@@ -1209,6 +1311,9 @@ watch(
     height: 1px;
     background-color: #CBCBCB;
     margin: 40px 0;
+    @include media("max", "m") {
+      margin: 28px 0;
+    }
   }
 }
 
@@ -1346,6 +1451,11 @@ watch(
     font-size: 28px;
     line-height: 32px;
     font-weight: 500;
+  }
+}
+br {
+  @include media("max", "m") {
+    display: none;
   }
 }
 </style>
