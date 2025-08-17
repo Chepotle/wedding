@@ -55,9 +55,9 @@
                 {{ dataSending.guestCome.btnText }}
               </button>
             </div>
-            <div v-if="dataSending.guestCome.dataIsSend" class="success">
+            <div v-if="dataSending.guestCome.dataIsSend" class="success success_mob">
               <div class="success__text">Спасибо за информацию!</div>
-              <div class="success__info">Данные успешно отправлены</div>
+              <div class="success__info success__info_left">Данные успешно отправлены</div>
             </div>
           </div>
 
@@ -71,6 +71,10 @@
             <div class="names">
               <div>Артур, Аннелия</div>
               <div>Валерий, Луиза</div>
+            </div>
+            <div v-if="dataSending.guestCome.dataIsSend" class="success success_desc">
+              <div class="success__text">Спасибо за информацию!</div>
+              <div class="success__info success__info_left">Данные успешно отправлены</div>
             </div>
 
             <div v-if="!dataSending.guestCome.dataIsSend" class="form form_desc">
@@ -483,7 +487,6 @@ const sendGuestCome = async () => {
         },
         body: JSON.stringify(guestCome)
       });
-      dataSending.guestCome.dataIsSend = true;
 
       if (!response.ok) {
         throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -887,6 +890,17 @@ watch(
 }
 
 .success {
+  &_desc {
+    @include media("max", "m") {
+      display: none;
+    }
+  }
+  &_mob {
+    display: none;
+    @include media("max", "m") {
+      display: block;
+    }
+  }
   &__info {
     font-family: "TT Hoves Pro";
     font-size: 20px;
@@ -901,6 +915,9 @@ watch(
     margin: 0 auto;
     border-radius: 20px;
     color: #fff;
+    &_left {
+      max-width: 100%;
+    }
   }
   &__text {
     font-size: 18px;
@@ -1694,7 +1711,7 @@ br {
   @include media("max", "m") {
     grid-template-columns: 1fr;
     grid-template-areas: 'm' 'd' 'i';
-    grid-auto-rows: 225px auto auto;
+    grid-template-rows: 225px auto auto;
   }
   &__cont{
     grid-area: m;
@@ -1707,6 +1724,14 @@ br {
   &__img{
     border-radius: 16px;
     grid-area: i;
+    img {
+      max-width: 100%;
+      overflow: hidden;
+    }
+    @include media("max", "m") {
+      display: flex;
+      flex-direction: column;
+    }
   }
 }
 
