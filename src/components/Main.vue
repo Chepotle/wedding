@@ -251,9 +251,10 @@
       <div id="location" class="block">
         <div class="block__header">Локация</div>
         <div class="block__sub-header">«Олимпия» загородный клуб</div>
-        <div class="block__content">
-          <div id="map" class="block__half"></div>
-          <div class="block__half">
+        <div class="block__content map">
+          <div id="map" ref="mapFindOrg" class="map__cont"></div>
+          <div class="map__desc">Волгоградская область, Среднеахтубинский район, Краснослободск, посёлок Вторая Пятилетка</div>
+          <div class="map__img">
             <img src="@/assets/img/location.jpg" alt="">
           </div>
         </div>
@@ -452,6 +453,8 @@
 
 <script setup>
 import {ref, reactive, watch, onMounted, onBeforeUnmount} from "vue";
+import ymaps from 'ymaps';
+
 
 const dataSending = reactive({
   guestCome: {
@@ -685,11 +688,47 @@ const updateTimer = () => {
 }
 
 // Запуск таймера при монтировании компонента
+const Createlayout = (e) => {return e.templateLayoutFactory.createClass(`<div dir="ltr" aria-hidden="true" class="map-placemark__wrapper">
+        <div class="search-placemark-view _position_right" data-icon-type="rubric" style="margin-top: -17px; margin-left: -17px;">
+        <div class="search-placemark-view__icon" style="width: 60px; height: 68px;"><div class="search-placemark-icon _mode_base _group-mode_default _state_default">
+        <div style="position: relative; width: 60px; height: 68px;"><div>
+        <svg width="60" height="68" viewBox="0 0 60 68" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path d="M23.51 51.523a.5.5 0 0 1-.5.477c-.29 0-.51-.21-.52-.477-.145-3.168-1.756-5.217-4.832-6.147C7.53 42.968 0 33.863 0 23 0 10.297 10.297 0 23 0s23 10.297 23 23c0 10.863-7.53 19.968-17.658 22.376-3.076.93-4.687 2.98-4.83 6.147z" id="ae96eeecd750ec2a83543f00c9bc789d__b"></path><filter x="-21.7%" y="-15.4%" width="143.5%" height="138.5%" filterUnits="objectBoundingBox" id="ae96eeecd750ec2a83543f00c9bc789d__a"><feGaussianBlur in="SourceGraphic" stdDeviation="3"></feGaussianBlur><feOffset dy="2"></feOffset><feComponentTransfer><feFuncA type="linear" slope=".3"></feFuncA></feComponentTransfer></filter></defs><g fill="none" fill-rule="evenodd"><g fill-rule="nonzero" transform="translate(7 5)" fill="currentColor"><use filter="url(#ae96eeecd750ec2a83543f00c9bc789d__a)" xlink:href="#ae96eeecd750ec2a83543f00c9bc789d__b"></use><use xlink:href="#ae96eeecd750ec2a83543f00c9bc789d__b"></use></g><path d="M30 68c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" fill="#fff" fill-rule="nonzero"></path><path d="M30 66a2 2 0 1 0 .001-3.999A2 2 0 0 0 30 66z" fill="currentColor"></path></g></svg>
+        </div><div style="position: absolute; left: 25px; top: 24px;">
+        <div class="rubric-placemark-icons-provider__base-content _pin-type_default">
+        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.857 8C8.082 8.02 6.02 7.53 5 6c1.036-1.554 3.144-1.498 4.937-.944C8.53 3.802 7.493 2.03 8 0c.851 0 4.602 1.45 5.698 4.966C15.771 3.78 19.331 3.331 22 6c-1.814 1.814-5.089 2.165-7.396 1.939C16.49 9.059 18 11.029 18 13c-1.759 0-5.452-1.547-6.316-4.642C8.679 10.201 6 13.983 6 22v.2a.8.8 0 0 1-.8.8H2.8a.8.8 0 0 1-.8-.8V22c0-6.5 2.619-11.167 7.857-14z" fill="currentColor"></path><path d="M8.68 23a.4.4 0 0 1-.35-.594l4.376-7.877a.4.4 0 0 1 .665-.051L16.5 18.5l2.206-1.324a.4.4 0 0 1 .513.087l4.234 5.08a.4.4 0 0 1-.307.657H8.68z" fill="currentColor"></path></svg>
+        </div></div></div></div></div>
+        <div class="search-placemark-view__title"> 
+        <div class="search-placemark-title _background _position_right _no-truncate">
+        <div class="search-placemark-title__title"><div class="search-placemark-title__title-text">{{properties.name}}</div>
+        <div class="search-placemark-title__title-rating"><span class="search-placemark-title-modular-hint-view">
+        <span class="inline-image _loaded icon search-placemark-title-modular-hint-view__rating-image" aria-hidden="true" role="button" tabindex="-1" style="font-size: 0px; line-height: 0;">
+        <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.99 9.19l-2.711 1.744c-.304.195-.687-.083-.603-.435l.792-3.323-2.32-1.9c-.279-.229-.14-.685.218-.716l3.018-.262L5.625 1.25a.398.398 0 0 1 .739.001l1.231 3.047 3.04.262c.358.031.496.488.216.717l-2.33 1.9.792 3.324c.084.352-.3.63-.603.435L5.99 9.189z" fill="currentColor">
+        </path></svg></span><span class="search-placemark-title-modular-hint-view__rating">{{properties.rating.score}}</span></span></div></div>
+        <div class="search-placemark-title__subtitle">
+        <span class="search-placemark-title__subtitle-item"><span class="search-placemark-title-modular-hint-view"> База, дом отдыха
+        </span></span></div></div> </div></div></div>`,
+        {build:function(){this.constructor.superclass.build.call(this)}});
+      }    
 onMounted(() => {
   updateTimer() // Первое обновление сразу
   intervalId = setInterval(updateTimer, 1000)
-})
-
+  const maps = ymaps.load('//api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=48d4964b-4fe1-4b32-8768-43ec07c075de').then((maps)=>{        
+      const map = new maps.Map('map', {
+        center: [48.666096, 44.564278],
+        zoom: 14
+    });
+    maps.findOrganization('1110837623').then((orgGeoObject) =>{
+      orgGeoObject.options.set('preset','islands#greyCircleIcon');
+      orgGeoObject.options.set("iconLayout",Createlayout(maps));
+      orgGeoObject.options.set("iconShape",{type:"Rectangle",coordinates:[[-25,-25],[125,25]]});
+      orgGeoObject.options.set("iconOffset",[-0,-0]);
+      map.geoObjects.add(orgGeoObject);      
+    }
+    // 1110837623 id org
+  ).catch(err => console.log(err));  
+}).catch(error => console.log('Failed to load Yandex Maps', error));
+});
 // Очистка таймера при размонтировании компонента
 onBeforeUnmount(() => {
   if (intervalId) {
@@ -728,9 +767,17 @@ watch(
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @use "@/assets/scss/media" as *;
+@use "src/assets/scss/mapmarker" as *;
 
+
+#map{
+  width:100%;
+  height: 100%;
+  min-width: 100px;
+  min-height: 100px;
+}
 .container {
   max-width: 1168px;
   width: 100%;
@@ -1394,6 +1441,7 @@ watch(
         flex-direction: row;
       }
     }
+    
     img {
       max-width: 100%;
       overflow: hidden;
@@ -1630,4 +1678,26 @@ br {
     display: none;
   }
 }
+.map{
+  display: grid;
+  grid-template-columns: 1fr 442px;
+  grid-template-rows: 1fr auto;
+  column-gap: 24px;
+  row-gap: 8px;
+  grid-template-areas: 'm i' 'd i';
+  &__cont{
+    grid-area: m;
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  &__desc{
+    grid-area: d;
+  }
+  &__img{
+    border-radius: 16px;
+    grid-area: i;
+  }
+}
+
+
 </style>

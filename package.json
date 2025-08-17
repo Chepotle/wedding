@@ -13,7 +13,8 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "vue": "^3.5.18"
+    "vue": "^3.5.18",
+    "ymaps": "^0.2.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
