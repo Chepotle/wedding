@@ -1,0 +1,98 @@
+.search-placemark-title {
+	background: #ffffffe6;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	padding: 3px 6px 4px;
+	border-radius: 6px;
+	line-height: inherit;
+	height: auto;
+	max-width: 180px;
+	color: #333;
+}
+
+.search-placemark-title__title {
+	display: flex;
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: 500;
+	color: #000;
+}
+
+.search-placemark-title__title-text {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	color: #000;
+}
+
+.search-placemark-title__title-rating {
+	white-space: nowrap;
+	margin-left: 4px;
+}
+
+.search-placemark-title__subtitle {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 14px;
+	color: #666;
+}
+
+.search-placemark-title__subtitle:not(:empty) {
+	margin-top: 1px;
+}
+
+.search-placemark-title-modular-hint-view._red {
+	color: red;
+}
+
+.search-placemark-title-modular-hint-view._green {
+	color: green;
+}
+
+.search-placemark-title-modular-hint-view__rating-image {
+	color: orange;
+}
+.ymaps-2-1-79-copyright__link{
+    display: none;
+}
+.search-placemark-view {
+	align-items: center;
+	display: flex;
+  // grid-template-columns: 60px auto;
+	height: 100%;
+}
+
+.search-placemark-view__icon {
+	z-index: 1;
+	flex-shrink: 0;
+}
+
+
+
+.search-placemark-icon {
+	display: flex;
+	color: #f43;
+}
+
+.search-placemark-icon:not(._state_visited) .tint {
+	opacity: 0;
+}
+
+.map-placemark__wrapper {
+	width: 0;
+	height: 0;  
+	cursor: pointer;
+	font-family: 'TT Hoves Pro';
+}
+
+.rubric-placemark-icons-provider__base-content {
+	width: 14px;
+	height: 14px;
+	margin-left: -7px;
+	margin-top: -7px;
+	color: #fff;
+	transform: scale(1.2);
+}
