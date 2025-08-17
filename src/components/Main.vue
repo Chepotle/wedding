@@ -4,17 +4,17 @@
       <div class="container">
         <div class="intro__header">
           <div class="intro__menu">
-            <span>Приглашение</span>
-            <span>Тайминг</span>
-            <span>Локация</span>
+            <a href="#invite">Приглашение</a>
+            <a href="#timing">Тайминг</a>
+            <a href="#location">Локация</a>
           </div>
           <div class="intro__logo">
             <img src="@/assets/icons/logo_intro.png" alt="">
           </div>
           <div class="intro__menu">
-            <span>Дресс-код</span>
-            <span>Напитки</span>
-            <span>Творчество</span>
+            <a href="#dress">Дресс-код</a>
+            <a href="#drinks">Напитки</a>
+            <a href="#art">Творчество</a>
           </div>
         </div>
         <div class="intro__date">25 октября 2025</div>
@@ -25,11 +25,38 @@
       </div>
     </div>
     <div class="container">
-      <div class="block">
-        <div class="block__content">
+      <div id="invite" class="block">
+        <div class="block__content block__content_reverse">
           <div class="block__half">
             <img src="@/assets/img/flowers.jpg" alt="">
+            <div class="form form_mob">
+              <div class="desc">
+                Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
+                фамилию,
+                имена членов вашей семьи
+              </div>
+              <div class="form__title">Имена и фамилии гостей</div>
+              <div class="form__textarea">
+                <img v-if="guestCome.names" @click="guestCome.names= ''"
+                     src="@/assets/icons/cross.png" alt="">
+                <textarea v-model="guestCome.names"
+                          placeholder="Например: Иванов Иван и Иванова Наталья"></textarea>
+              </div>
+              <div class="counter">
+                <div class="counter__title">Количество гостей</div>
+                <div class="counter__panel">
+                  <img @click="deleteGuest(guestCome)" src="@/assets/icons/minus.png" alt="">
+                  <div class="counter__value">{{ guestCome.count }}</div>
+                  <img @click="addGuest(guestCome)" src="@/assets/icons/plus.png" alt="">
+                </div>
+              </div>
+              <button class="form__sub"
+                      :class="{'form__sub_active': guestCome.count && guestCome.names}">
+                {{ dataSending.guestCome.btnText }}
+              </button>
+            </div>
           </div>
+
           <div class="block__half">
             <div class="invite">Дорогие наши, родные и близкие!</div>
             <div class="block__text">
@@ -41,12 +68,13 @@
               <div>Артур, Аннелия</div>
               <div>Валерий, Луиза</div>
             </div>
-            <div class="desc">
-              Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
-              фамилию,
-              имена членов вашей семьи
-            </div>
-            <div class="form">
+
+            <div class="form form_desc">
+              <div class="desc">
+                Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
+                фамилию,
+                имена членов вашей семьи
+              </div>
               <div class="form__title">Имена и фамилии гостей</div>
                 <div class="form__textarea">
                   <img v-if="guestCome.names" @click="guestCome.names= ''"
@@ -110,7 +138,7 @@
           </div>
         </div>
       </div>
-      <div class="block">
+      <div id="timing" class="block">
         <div class="block__header">Тайминг</div>
         <div class="block__sub-header">25 октября 2025</div>
         <div class="divider">
@@ -196,7 +224,7 @@
           </div>
         </div>
       </div>
-      <div class="block">
+      <div id="location" class="block">
         <div class="block__header">Локация</div>
         <div class="block__sub-header">«Олимпия» загородный клуб</div>
         <div class="block__content">
@@ -206,7 +234,7 @@
           </div>
         </div>
       </div>
-      <div class="block">
+      <div id="dress" class="block">
         <div class="block__header">Цветовая палитра нашей свадьбы</div>
         <div class="block__content block__content_margin-s">
           <div class="block__half block__half_margin">
@@ -240,7 +268,7 @@
           </div>
         </div>
       </div>
-      <div class="block">
+      <div id="drinks" class="block">
         <div class="block__header">
           Предпочтения по алкоголю
         </div>
@@ -323,7 +351,7 @@
           <div class="success__info">Информация успешно отправлена</div>
         </div>
       </div>
-      <div class="block">
+      <div id="art" class="block">
         <div class="block__header">Станьте частью праздника</div>
         <div class="block__content">
           <div class="block__half block__half_margin">
@@ -600,11 +628,13 @@ watch(
 </script>
 
 <style lang="scss" scoped>
+@use "@/assets/scss/media" as *;
 
 .container {
   max-width: 1168px;
   width: 100%;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .timer {
@@ -995,6 +1025,8 @@ watch(
   height: 100dvh;
   width: 100%;
   margin-bottom: 72px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
   &__header {
     font-family: "TT Hoves Pro";
     font-weight: 500;
@@ -1006,7 +1038,11 @@ watch(
     padding-top: 10px;
     line-height: 24px;
     margin-bottom: 145px;
-    span {
+    @include media("max", "m") {
+      justify-content: center;
+    }
+    a {
+      color: #fff;
       cursor: pointer;
       &:nth-child(2) {
         margin: 0 32px;
@@ -1043,6 +1079,11 @@ watch(
       }
     }
   }
+  &__menu {
+    @include media("max", "m") {
+      display: none;
+    }
+  }
 }
 
 .invite {
@@ -1055,6 +1096,9 @@ watch(
 
 .block {
   margin-bottom: 116px;
+  @include media("max", "m") {
+    margin-bottom: 72px;
+  }
   &__logo-contact {
     height: 362px;
     background-color: #EEE2D0;
@@ -1066,6 +1110,14 @@ watch(
   &__content {
     display: flex;
     align-items: center;
+    @include media("max", "m") {
+      flex-direction: column;
+    }
+    &_reverse {
+      @include media("max", "m") {
+        flex-direction: column-reverse;
+      }
+    }
     &_margin {
       margin-bottom: 80px;
     }
@@ -1099,9 +1151,23 @@ watch(
     color: #1CCB01;
   }
   &__half {
+    @include media("max", "m") {
+      display: flex;
+      flex-direction: column;
+    }
+    img {
+      max-width: 100%;
+      overflow: hidden;
+    }
     width: 50%;
+    @include media("max", "m") {
+      width: 100%;
+    }
     &_margin {
       margin-right: 72px;
+      @include media("max", "m") {
+        margin-right: 0;
+      }
     }
     &_logo {
       height: 462px;
@@ -1153,6 +1219,9 @@ watch(
   line-height: 28px;
   font-family: "Forum";
   margin: 8px 0 36px 0;
+  @include media("max", "m") {
+    margin-bottom: 24px;
+  }
 }
 
 .desc {
@@ -1163,6 +1232,18 @@ watch(
 }
 
 .form {
+  &_mob {
+    display: none;
+    @include media("max", "m") {
+      margin-top: 24px;
+      display: block;
+    }
+  }
+  &_desc {
+    @include media("max", "m") {
+      display: none;
+    }
+  }
   &__textarea {
     position: relative;
   }
@@ -1228,6 +1309,9 @@ watch(
 .counter {
   font-family: "TT Hoves Pro";
   margin-bottom: 23px;
+  @include media("max", "m") {
+    margin-bottom: 36px;
+  }
   &__title {
     font-size: 16px;
     line-height: 20px;
