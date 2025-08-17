@@ -29,7 +29,7 @@
         <div class="block__content block__content_reverse">
           <div class="block__half block__half_margin">
             <img src="@/assets/img/flowers.jpg" alt="">
-            <div class="form form_mob">
+            <div v-if="!dataSending.guestCome.dataIsSend" class="form form_mob">
               <div class="desc">
                 Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
                 фамилию,
@@ -50,10 +50,14 @@
                   <img @click="addGuest(guestCome)" src="@/assets/icons/plus.png" alt="">
                 </div>
               </div>
-              <button class="form__sub"
+              <button @click="sendGuestCome" class="form__sub"
                       :class="{'form__sub_active': guestCome.count && guestCome.names}">
                 {{ dataSending.guestCome.btnText }}
               </button>
+            </div>
+            <div v-if="dataSending.guestCome.dataIsSend" class="success">
+              <div class="success_text">Спасибо за информацию!</div>
+              <div class="success__info">Данные успешно отправлены</div>
             </div>
           </div>
 
@@ -69,7 +73,7 @@
               <div>Валерий, Луиза</div>
             </div>
 
-            <div class="form form_desc">
+            <div v-if="!dataSending.guestCome.dataIsSend" class="form form_desc">
               <div class="desc">
                 Напишите, пожалуйста, в каком составе вы прибудете на торжество, укажите имя и
                 фамилию,
@@ -90,7 +94,7 @@
                     <img @click="addGuest(guestCome)" src="@/assets/icons/plus.png" alt="">
                   </div>
                 </div>
-                <button class="form__sub"
+                <button @click="sendGuestCome" class="form__sub"
                         :class="{'form__sub_active': guestCome.count && guestCome.names}">
                   {{ dataSending.guestCome.btnText }}
                 </button>
@@ -140,7 +144,7 @@
       </div>
       <div id="timing" class="block">
         <div class="block__header">Тайминг</div>
-        <div class="block__sub-header">25 октября 2025</div>
+        <div class="block__sub-header block__sub-header_grey">25 октября 2025</div>
         <div class="divider">
           <div class="divider__line"></div>
           <div class="block__content block__content_margin-s">
@@ -403,9 +407,9 @@
                 <textarea v-model="guestPerform.desc"
                           placeholder="Коротко расскажите, что вы хотите исполнять (песня, танец, сценка и т. д.)"></textarea>
               </div>
-                <button class="form__sub"
+                <button @click="sendGuestPerfom" class="form__sub"
                         :class="{'form__sub_active': guestPerform.number && guestPerform.names && guestPerform.desc}">
-                  {{ dataSending.guestCome.btnText }}
+                  {{ dataSending.guestPerfom.btnText }}
                 </button>
             </div>
           </div>
@@ -457,8 +461,91 @@ const dataSending = reactive({
   guestAlco: {
     btnText: 'Выбрать напитки',
     dataIsSend: false,
+  },
+  guestPerfom: {
+    btnText: 'Отправить',
+    dataIsSend: false,
   }
 })
+
+const sendGuestCome = async () => {
+  if (guestCome.count && guestCome.names) {
+    try {
+      dataSending.guestCome.btnText = 'Отправка';
+
+      let response = await fetch('/action.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(guestCome)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+      } else {
+        dataSending.guestCome.dataIsSend = true;
+      }
+
+    } catch (error) {
+      console.error('Ошибка при отправке:', error);
+      // dataSending.guestCome.btnText = 'Ошибка, попробуйте снова';
+    }
+  }
+}
+
+const sendAlcoInfo = async () => {
+  if (guestAlco.count === guestAlco.alco.general) {
+    try {
+      dataSending.guestAlco.btnText = 'Отправка';
+
+      let response = await fetch('/action.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(guestAlco)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+      } else {
+        dataSending.guestAlco.dataIsSend = true;
+        alcoStep.step = 2
+      }
+
+    } catch (error) {
+      console.error('Ошибка при отправке:', error);
+      // dataSending.guestCome.btnText = 'Ошибка, попробуйте снова';
+    }
+  }
+}
+
+const sendGuestPerfom = async () => {
+  if (guestPerform.number && guestPerform.names && guestPerform.desc) {
+    try {
+      dataSending.guestPerfom.btnText = 'Отправка';
+
+      let response = await fetch('/action.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(guestPerform)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP: ${response.status}`);
+      } else {
+        dataSending.guestPerfom.dataIsSend = true;
+      }
+
+    } catch (error) {
+      console.error('Ошибка при отправке:', error);
+      // dataSending.guestCome.btnText = 'Ошибка, попробуйте снова';
+    }
+  }
+}
 
 const guestPerform = reactive({
   names: '',
@@ -537,12 +624,6 @@ const removeAlco = (item, obj) => {
   if (obj[item.name]) {
     obj[item.name]--
     obj.general--
-  }
-}
-
-const sendAlcoInfo = () => {
-  if (guestAlco.count === guestAlco.alco.general) {
-    alcoStep.step = 2
   }
 }
 
@@ -670,11 +751,19 @@ watch(
   &__value {
     font-size: 44px;
     font-weight: 500;
+    @include media("max", "m") {
+      font-size: 36px;
+      line-height: 40px;
+    }
   }
   &__label {
     font-size: 24px;
     line-height: 28px;
     font-weight: 400;
+    @include media("max", "m") {
+      font-size: 20px;
+      line-height: 24px;
+    }
   }
   &__divider {
     height: inherit;
@@ -692,6 +781,11 @@ watch(
   background-color: #A4B494;
   padding-top: 116px;
   padding-bottom: 152px;
+  @include media("max", "m") {
+    padding-top: 72px;
+    padding-bottom: 132px;
+    height: 540px;
+  }
   &__title {
     font-family: "TT Hoves Pro";
     font-size: 52px;
@@ -700,6 +794,13 @@ watch(
     text-align: center;
     color: #fff;
     margin-bottom: 100px;
+    @include media("max", "m") {
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 36px;
+      margin-bottom: 60px;
+      text-align: left;
+    }
   }
   &__text {
     font-family: "Forum";
@@ -708,6 +809,11 @@ watch(
     line-height: 54px;
     color: #fff;
     margin-bottom: 40px;
+    @include media("max", "m") {
+      margin-bottom: 24px;
+      font-size: 34px;
+      line-height: 36px;
+    }
   }
 }
 
@@ -748,6 +854,13 @@ watch(
     border-radius: 20px;
     color: #fff;
   }
+  &__text {
+    font-size: 18px;
+    line-height: 20;
+    font-family: "TT Hoves Pro";
+    font-weight: 500;
+    margin-bottom: 36px;
+  }
 }
 
 .select {
@@ -781,6 +894,10 @@ watch(
     justify-content: center;
     position: relative;
     margin-bottom: 24px;
+    @include media("max", "m") {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
   &__back {
     display: flex;
@@ -790,25 +907,38 @@ watch(
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    color: #2688EB;
+    @include media("max", "m") {
+      position: static;
+      justify-content: flex-start;
+      transform: translateY(0);
+      margin-bottom: 16px;
+    }
   }
   &__content {
     display: flex;
     margin-bottom: 44px;
+    row-gap: 12px;
+    justify-content: center;
+    column-gap: 32px;
     @include media("max", "m") {
       flex-wrap: wrap;
+      column-gap: 12px;
     }
   }
   &__item {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    margin-right: 32px;
-    &:last-child {
-      margin-right: 0;
+    max-width: 168px;
+    width: 100%;
+    @include media("max", "m") {
+      max-width: 165px;
     }
-    + img {
-      max-width: 168px;
-      width: 100%;
+    img {
+      &:first-child {
+        max-width: 100%;
+        overflow: hidden;
+      }
     }
   }
   &__name {
@@ -837,6 +967,7 @@ watch(
     font-size: 16px;
     line-height: 20px;
     font-weight: 500;
+    margin-top: auto;
     &:hover {
       background-color: #585B5F;
     }
@@ -938,6 +1069,7 @@ watch(
   font-family: "TT Hoves Pro";
   display: flex;
   height: 400px;
+  gap: 8px;
   @include media("max", "m") {
     flex-wrap: wrap;
     height: 472px;
@@ -950,10 +1082,11 @@ watch(
     display: flex;
     align-items: flex-end;
     border-radius: 16px;
-    margin-right: 8px;
     flex: 1;
     @include media("max", "m") {
       padding: 12px;
+      font-size: 18px;
+      line-height: 22px;
     }
     &:nth-child(1) {
       background-color: #A4B494;
@@ -963,24 +1096,14 @@ watch(
     }
     &:nth-child(3) {
       background-color: #94795D;
-      @include media("max", "m") {
-        margin-top: 8px;
-        margin-right: 8px;
-      }
     }
     &:nth-child(4) {
       background-color: #3B322D;
-      @include media("max", "m") {
-        margin-top: 8px;
-      }
     }
     &:nth-child(5) {
       background-color: #EEE2D0;
       color: #000;
       margin-right: 0;
-      @include media("max", "m") {
-        margin-top: 8px;
-      }
     }
   }
 }
@@ -1050,6 +1173,8 @@ watch(
     @include media("max", "m") {
       text-align: left;
       margin-left: 8px;
+      font-size: 24px;
+      line-height: 28px;
     }
   }
   &__event {
@@ -1060,6 +1185,8 @@ watch(
     @include media("max", "m") {
       text-align: left;
       margin-left: 8px;
+      font-size: 16px;
+      line-height: 20px;
     }
   }
   &__line {
@@ -1103,6 +1230,9 @@ watch(
   margin-bottom: 72px;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
+  @include media("max", "m") {
+    margin-bottom: 40px;
+  }
   &__header {
     font-family: "TT Hoves Pro";
     font-weight: 500;
@@ -1140,6 +1270,11 @@ watch(
     color: #fff;
     text-align: center;
     margin-bottom: 32px;
+    @include media("max", "m") {
+      font-size: 24px;
+      line-height: 28px;
+      margin-bottom: 24px;
+    }
   }
   &__title {
     color: #fff;
@@ -1149,9 +1284,17 @@ watch(
       &:first-child {
         font-size: 112px;
         margin-bottom: 20px;
+        @include media("max", "m") {
+          font-size: 48px;
+          margin-bottom: 12px;
+        }
       }
       &:last-child {
         font-size: 64px;
+        @include media("max", "m") {
+          font-size: 32px;
+          line-height: 36px;
+        }
       }
     }
   }
@@ -1168,6 +1311,10 @@ watch(
   font-weight: 400;
   line-height: 40px;
   margin-bottom: 8px;
+  @include media("max", "m") {
+    font-size: 32px;
+    line-height: 36px;
+  }
 }
 
 .block {
@@ -1215,6 +1362,7 @@ watch(
       font-size: 22px;
       line-height: 26px;
       margin-bottom: 16px;
+      text-align: left;
     }
     &_grey {
       color: #474747;
@@ -1285,6 +1433,7 @@ watch(
       margin-bottom: 20px;
       font-size: 36px;
       line-height: 40px;
+      text-align: left;
     }
   }
   &__title {
@@ -1292,12 +1441,20 @@ watch(
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 12px;
+    @include media("max", "m") {
+      font-size: 20px;
+    }
   }
   &__text {
     font-family: "TT Hoves Pro";
     font-size: 20px;
     font-weight: 400;
     line-height: 24px;
+    @include media("max", "m") {
+      font-size: 18px;
+      line-height: 22px;
+
+    }
     &_palitra {
       font-size: 24px;
       line-height: 28px;
@@ -1334,6 +1491,9 @@ watch(
   font-weight: 500;
   font-size: 18px;
   line-height: 20px;
+  @include media("max", "m") {
+    font-size: 16px;
+  }
 }
 
 .form {
@@ -1363,6 +1523,10 @@ watch(
     font-size: 18px;
     line-height: 24px;
     font-family: 'TT Hoves Pro';
+    @include media("max", "m") {
+      font-size: 16px;
+      line-height: 20px;
+    }
     &::placeholder {
       color: #000;
     }
@@ -1384,6 +1548,10 @@ watch(
     line-height: 20px;
     font-weight: 400;
     margin: 12px 0 4px 0;
+    @include media("max", "m") {
+      font-size: 14px;
+      line-height: 16px;
+    }
   }
   &__sub {
     height: 64px;
@@ -1422,6 +1590,10 @@ watch(
     line-height: 20px;
     font-weight: 400;
     margin-bottom: 4px;
+    @include media("max", "m") {
+      font-size: 14px;
+      line-height: 16px;
+    }
   }
   &__panel {
     display: flex;
