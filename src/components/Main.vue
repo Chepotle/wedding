@@ -1694,7 +1694,7 @@ br {
   @include media("max", "m") {
     grid-template-columns: 1fr;
     grid-template-areas: 'm' 'd' 'i';
-    grid-auto-rows: 225px auto auto;
+    grid-template-rows: 225px auto auto;
   }
   &__cont{
     grid-area: m;
@@ -1707,7 +1707,13 @@ br {
   &__img{
     border-radius: 16px;
     grid-area: i;
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
   }
+   &__img img{
+    max-width: 100%;
+   }
 }
 
 
