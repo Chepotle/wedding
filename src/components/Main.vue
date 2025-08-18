@@ -1,6 +1,18 @@
 <template>
   <div class="wedding">
     <div class="intro">
+      <div class="burger" :class="burger ? 'burger__open' : 'burger__close'">
+        <div v-if="burger" class="burger__content">
+          <a @click="goAnchor" href="#invite">Приглашение</a>
+          <a @click="goAnchor" href="#timing">Тайминг</a>
+          <a @click="goAnchor" href="#location">Локация</a>
+          <a @click="goAnchor" href="#dress">Дресс-код</a>
+          <a @click="goAnchor" href="#drinks">Напитки</a>
+          <a @click="goAnchor" href="#art">Творчество</a>
+          <div class="burger__date">25 октября 2025</div>
+          <div class="burger__names">Артур и Аннелия</div>
+        </div>
+      </div>
       <div class="container">
         <div class="intro__header">
           <div class="intro__menu">
@@ -16,6 +28,8 @@
             <a href="#drinks">Напитки</a>
             <a href="#art">Творчество</a>
           </div>
+          <img @click="burger = !burger" v-if="!burger" src="@/assets/icons/burger.png" alt="" class="burger__icon">
+          <img @click="burger = !burger" v-else src="@/assets/icons/close.png" alt="" class="burger__icon">
         </div>
         <div class="intro__date">25 октября 2025</div>
         <div class="intro__title">
@@ -460,6 +474,8 @@ import {ref, reactive, watch, onMounted, onBeforeUnmount} from "vue";
 import ymaps from 'ymaps';
 
 
+let burger = ref(false)
+
 const dataSending = reactive({
   guestCome: {
     btnText: 'Отправить',
@@ -474,6 +490,12 @@ const dataSending = reactive({
     dataIsSend: false,
   }
 })
+
+const goAnchor = () => {
+  document.body.style.overflow = ''
+  document.body.style.touchAction = ''
+  burger = false
+}
 
 const sendGuestCome = async () => {
   if (guestCome.count && guestCome.names) {
@@ -749,6 +771,20 @@ watch(
   }
 )
 
+watch(burger, (open) => {
+  if (open) {
+    document.body.style.overflow = 'hidden'
+    document.body.style.touchAction = 'none'
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+  } else {
+    document.body.style.overflow = ''
+    document.body.style.touchAction = ''
+  }
+})
+
 watch(
   () => guestAlco.count,
   (newValue) => {
@@ -774,6 +810,54 @@ watch(
 <style lang="scss">
 @use "@/assets/scss/media" as *;
 @use "src/assets/scss/mapmarker" as *;
+
+.burger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000;
+  height: 100dvh;
+  width: 100%;
+  transition: max-height 0.25s ease;
+  &__content {
+    padding-top: 124px;
+    padding-left: 16px;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    a {
+      font-family: "TT Hoves Pro";
+      font-size: 22px;
+      line-height: 24px;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 32px;
+    }
+  }
+  &__names {
+    font-family: "Forum";
+    font-size: 44px;
+  }
+  &__date {
+    font-family: "TT Hoves Pro";
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    margin-top: 148px;
+    margin-bottom: 24px;
+  }
+  &__open {
+    max-height: 100%;
+  }
+  &__close {
+    max-height: 0;
+  }
+  &__icon {
+    position: absolute;
+    right: 16px;
+    top: 20px;
+  }
+}
 
 
 #map{
@@ -1314,8 +1398,11 @@ watch(
     padding-top: 10px;
     line-height: 24px;
     margin-bottom: 145px;
+    position: relative;
+    z-index: 10;
     @include media("max", "m") {
       justify-content: center;
+      margin-bottom: 164px;
     }
     a {
       color: #fff;
