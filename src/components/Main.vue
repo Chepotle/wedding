@@ -386,7 +386,7 @@
           </div>
           <button @click="sendAlcoInfo" class="select__sub"
                   :class="{'select__sub_active': guestAlco.count === guestAlco.alco.general}">
-            Отправить
+            {{ dataSending.guestAlco.btnText }}
           </button>
         </div>
         <div v-if="alcoStep.step === 2" class="success">
