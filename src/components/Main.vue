@@ -524,7 +524,7 @@ const sendGuestCome = async () => {
 }
 
 const sendAlcoInfo = async () => {
-  if (guestAlco.count === guestAlco.alco.general) {
+  if ((guestAlco.count === guestAlco.alco.general) || guestAlco.notDrink) {
     try {
       dataSending.guestAlco.btnText = 'Отправка';
 
@@ -637,7 +637,9 @@ const preventDeletePlusSeven = (e) => {
 
 
 const chooseDrinks = () => {
-  if ((guestAlco.count && guestAlco.names) || guestAlco.notDrink) {
+  if (guestAlco.notDrink) {
+    sendAlcoInfo()
+  } else if (guestAlco.count && guestAlco.names) {
     alcoStep.step = 1
   }
 }
