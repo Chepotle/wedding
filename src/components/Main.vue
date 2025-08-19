@@ -1790,6 +1790,12 @@ br {
     display: none;
   }
 }
+ .burger__icon{
+    display: none;   
+    @include media("max", "m") {
+      display: block;
+    } 
+  }
 .map{
   display: grid;
   grid-template-columns: 1fr 442px;
@@ -1822,6 +1828,7 @@ br {
       flex-direction: column;
     }
   }
+ 
 }
 
 
