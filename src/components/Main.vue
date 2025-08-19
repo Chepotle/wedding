@@ -406,7 +406,7 @@
             </div>
           </div>
           <div class="block__half">
-            <div class="form">
+            <div v-if="!dataSending.guestPerfom.dataIsSend" class="form">
               <div class="form__title">Имена и фамилии гостей</div>
                 <div class="form__textarea">
                   <img v-if="guestPerform.names" @click="guestPerform.names= ''"
@@ -430,6 +430,10 @@
                         :class="{'form__sub_active': guestPerform.number && guestPerform.names && guestPerform.desc}">
                   {{ dataSending.guestPerfom.btnText }}
                 </button>
+            </div>
+            <div v-else class="success">
+              <div class="success__text">Спасибо за информацию!</div>
+              <div class="success__info success__info_left">Данные успешно отправлены</div>
             </div>
           </div>
         </div>
@@ -1791,10 +1795,10 @@ br {
   }
 }
  .burger__icon{
-    display: none;   
+    display: none;
     @include media("max", "m") {
       display: block;
-    } 
+    }
   }
 .map{
   display: grid;
@@ -1828,7 +1832,7 @@ br {
       flex-direction: column;
     }
   }
- 
+
 }
 
 
